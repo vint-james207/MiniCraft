@@ -47,8 +47,20 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		time += Gdx.graphics.getDeltaTime();
 
+		if (x > 800) {
+			x = 0;
+		}
 
+		else if (x < -0) {
+			x = 800;
+		}
+		else if (y > 600) {
+			y = 0;
+		}
 
+		else if (y < -0) {
+			y = 600;
+		}
 
 		Gdx.gl.glClearColor(0.5f, 0.7f, 0.5f, 0.8f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -61,31 +73,41 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			yv = MAX_VELOCITY;
 			curDir = up;
+
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 				yv = speedUp(yv);
 			}
 		}
+
 		else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			yv = -MAX_VELOCITY;
 			curDir = down;
+
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 				yv = speedUp(yv);
 			}
 		}
+
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			xv = -MAX_VELOCITY;
 			curDir = left;
+
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 				xv = speedUp(xv);
 			}
 		}
+
 		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			xv = MAX_VELOCITY;
 			curDir = right;
+
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 				xv = speedUp(xv);
 			}
-		} else curDir = stand;
+		}
+		if (xv == 0 && yv == 0) {
+			curDir = stand;
+		}
 
 		float delta = Gdx.graphics.getDeltaTime();
 		y += yv * delta;
